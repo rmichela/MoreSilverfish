@@ -27,13 +27,15 @@ public class MSConfig {
     private int highestLayer;
     private int percentChance;
     private int colonySize;
+    private boolean debug;
     private List<String> worlds;
 
     public MSConfig(ConfigurationSection rawConfig) {
-        lowestLayer = rawConfig.getInt("lowestLayer");
-        highestLayer = rawConfig.getInt("highestLayer");
-        percentChance = rawConfig.getInt("percentChance");
-        colonySize = rawConfig.getInt("percentChance");
+        lowestLayer = rawConfig.getInt("lowestLayer", 0);
+        highestLayer = rawConfig.getInt("highestLayer", 25);
+        percentChance = rawConfig.getInt("percentChance", 2);
+        colonySize = rawConfig.getInt("colonySize", 3);
+        debug = rawConfig.getBoolean("debug", false);
         worlds = rawConfig.getStringList("worlds");
 
         if (lowestLayer < 0) lowestLayer = 0;
@@ -65,5 +67,9 @@ public class MSConfig {
 
     public List<String> getWorlds() {
         return worlds;
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 }

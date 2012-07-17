@@ -35,14 +35,17 @@ public class SilverfishPopulator extends BlockPopulator {
     public void populate(World world, Random random, Chunk chunk) {
         // 1. Determine if this chunk will get a Silverfish colony
         int existsRoll = random.nextInt(101); // [0..100]
-        if (config.getPercentChance() < existsRoll) {
+        if (config.getPercentChance() > existsRoll) {
 
             // 2. Determine the size of the Silverfish colony
             int colonySize = 0;
             for (int i = 0; i < config.getColonySize(); i++) {
                 colonySize += (random.nextInt(6) + 1); // [1..6]
             }
-            Bukkit.getLogger().info("Creating Silverfish colony of size " + colonySize);
+
+            if (config.isDebug()) {
+                Bukkit.getLogger().info("Creating Silverfish colony of size " + colonySize);
+            }
 
             // 3. Establish the colony depth
             int colonyDepth = random.nextInt(config.getHighestLayer() - config.getLowestLayer() + 1);
@@ -59,6 +62,9 @@ public class SilverfishPopulator extends BlockPopulator {
                 // Attempt to lay a Silverfish egg
                 if (current.getType() == Material.STONE) {
                     current.setType(Material.MONSTER_EGGS); // Block 97
+                    if (config.isDebug()) {
+                        chunk.getBlock(x, 128, z).setType(Material.GLASS);
+                    }
                     colonySize--;
                 }
 
