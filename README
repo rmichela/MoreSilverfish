@@ -1,0 +1,25 @@
+ __  __                   _____ _ _                 __ _     _
+|  \/  |                 / ____(_) |               / _(_)   | |
+| \  / | ___  _ __ ___  | (___  _| |_   _____ _ __| |_ _ ___| |__
+| |\/| |/ _ \| '__/ _ \  \___ \| | \ \ / / _ \ '__|  _| / __| '_ \
+| |  | | (_) | | |  __/  ____) | | |\ V /  __/ |  | | | \__ \ | | |
+|_|  |_|\___/|_|  \___| |_____/|_|_| \_/ \___|_|  |_| |_|___/_| |_|
+
+More Silverfish is a Bukkit mod that adds randomly generated Silverfish
+colonies to any Bukkit world. Silverfish colonies are of random size and
+shape, but are always contiguous (so they will properly swarm).
+
+Installation: Drop in the Plugins directory and restart the server.
+
+Configuration: config.yml is automatically created the first time the plugin
+starts
+
+- lowestLayer:   The lower boundary where Silverfish colonies will spawn
+- highestLayer:  The upper boundary where Silverfish colonies will spawn
+- percentChance: The percent chance a chunk will contain a Silverfish colony
+- colonySize:    A multiplier that controls the size of the generated colonies
+- debug:         Enables debug mode (must add yourself)
+- worlds:        A list of worlds to add Silverfish colonies to
+
+Note: When debug mode is on, glass blocks are placed in the sky above Silverfish
+      colonies and the console prints out details each time a colony is created.
