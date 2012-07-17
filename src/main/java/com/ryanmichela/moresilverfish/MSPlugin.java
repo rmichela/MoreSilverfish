@@ -15,10 +15,34 @@
 
 package com.ryanmichela.moresilverfish;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  */
-public class MSPlugin extends JavaPlugin {
+public class MSPlugin extends JavaPlugin implements Listener {
 
+    private MSConfig msConfig;
+
+    @Override
+    public void onEnable() {
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdir();
+            saveDefaultConfig();
+        }
+        msConfig = new MSConfig(getConfig());
+
+        getServer().getPluginManager().registerEvents(this, this);
+    }
+
+    @EventHandler
+    private void onWorldInit(WorldInitEvent worldInitEvent) {
+        String worldName = worldInitEvent.getWorld().getName();
+        if (msConfig.getWorlds().contains(worldName)) {
+            getLogger().info("Attaching Silverfish populator to world: " + worldName);
+            worldInitEvent.getWorld().getPopulators().add(new SilverfishPopulator(msConfig));
+        }
+    }
 }
