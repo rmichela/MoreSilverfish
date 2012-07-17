@@ -1,0 +1,4 @@
+name: MoreSilverfish
+version: 1.0
+main: com.ryanmichela.moresilverfish.MSPlugin
+load: startup
