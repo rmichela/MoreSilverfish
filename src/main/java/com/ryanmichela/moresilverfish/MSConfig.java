@@ -44,7 +44,7 @@ public class MSConfig {
         if (percentChance < 0) percentChance = 0;
         if (percentChance > 100) percentChance = 100;
         if (colonySize < 0) colonySize = 0;
-        if (colonySize > 128) colonySize = 128;
+        if (colonySize > 20) colonySize = 20;
     }
 
     public int getColonySize() {

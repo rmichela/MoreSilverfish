@@ -15,10 +15,9 @@
 
 package com.ryanmichela.moresilverfish;
 
-import org.bukkit.Chunk;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Random;
 
@@ -34,6 +33,58 @@ public class SilverfishPopulator extends BlockPopulator {
 
     @Override
     public void populate(World world, Random random, Chunk chunk) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // 1. Determine if this chunk will get a Silverfish colony
+        int existsRoll = random.nextInt(101); // [0..100]
+        if (config.getPercentChance() < existsRoll) {
+
+            // 2. Determine the size of the Silverfish colony
+            int colonySize = 0;
+            for (int i = 0; i < config.getColonySize(); i++) {
+                colonySize += (random.nextInt(6) + 1); // [1..6]
+            }
+            Bukkit.getLogger().info("Creating Silverfish colony of size " + colonySize);
+
+            // 3. Establish the colony depth
+            int colonyDepth = random.nextInt(config.getHighestLayer() - config.getLowestLayer() + 1);
+            colonyDepth += config.getLowestLayer();
+
+            // 4. Lay out the Silverfish colony
+            int x = 7;
+            int y = colonyDepth;
+            int z = 7;
+
+            while (colonySize > 0) {
+                Block current = chunk.getBlock(x, y, z);
+
+                // Attempt to lay a Silverfish egg
+                if (current.getType() == Material.STONE) {
+                    current.setType(Material.MONSTER_EGGS); // Block 97
+                    colonySize--;
+                }
+
+                // Translate randomly, respecting chunk boundaries
+                int direction = random.nextInt(6); // [0..5]
+                switch (direction) {
+                    case 0:
+                        if (x + 1 < 16) x++;
+                        break;
+                    case 1:
+                        if (x - 1 >= 0) x--;
+                        break;
+                    case 2:
+                        if (z + 1 < 16) z++;
+                        break;
+                    case 3:
+                        if (z - 1 >= 0) z--;
+                        break;
+                    case 4:
+                        if (y + 1 < 256) y++;
+                        break;
+                    case 5:
+                        if (y - 1 >= 0) y--;
+                        break;
+                }
+            }
+        }
     }
 }
