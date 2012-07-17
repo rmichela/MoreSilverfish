@@ -1,11 +1,11 @@
 # The lowest layer to find Silverfish colonies
 lowestLayer: 0
 # The highest layer to find Silverfish colonies
-highestLayer: 15
-# The percent chance of a chunk a Silverfish colony
-percentChance: 3
+highestLayer: 25
+# The percent chance of a chunk having a Silverfish colony
+percentChance: 1
 # The size of a Silverfish colony (max 20)
-colonySize: 2
+colonySize: 3
 
 # The list of worlds to add Silverfish colonies
 worlds:
